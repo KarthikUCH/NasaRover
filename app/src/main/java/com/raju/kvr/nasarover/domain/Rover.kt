@@ -7,11 +7,20 @@ class Rover(
     private val plateau: Plateau
 ) {
 
-    private val instructions = mapOf(
-        'M' to MoveForward,
-        'R' to TurnRight,
-        'L' to TurnLeft
-    )
+    companion object {
+        val instructions = mapOf(
+            'M' to MoveForward,
+            'R' to TurnRight,
+            'L' to TurnLeft
+        )
+
+        val directions = mapOf(
+            'E' to Direction.E,
+            'W' to Direction.W,
+            'N' to Direction.N,
+            'S' to Direction.S
+        )
+    }
 
     fun navigateTo(movement: String) {
         for (ch: Char in movement) {
@@ -37,7 +46,7 @@ class Rover(
         }
     }
 
-    fun getCurrentPosition(): String{
+    fun getCurrentPosition(): String {
         return "$xCoordinate$yCoordinate${facing.name}"
     }
 

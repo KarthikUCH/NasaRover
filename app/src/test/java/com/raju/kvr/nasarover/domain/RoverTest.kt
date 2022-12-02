@@ -60,4 +60,12 @@ internal class RoverTest {
         rover.navigateTo("MMRMMLLMRMLLM");
         assertEquals("44S", rover.getCurrentPosition())
     }
+
+    @Test
+    fun `test navigation case 4`(){
+        val plateau = Plateau(1)
+        val rover = Rover(0, 0, Direction.N, plateau)
+        rover.navigateTo("LMLMLMLMML");
+        assertEquals("00W", rover.getCurrentPosition())
+    }
 }
