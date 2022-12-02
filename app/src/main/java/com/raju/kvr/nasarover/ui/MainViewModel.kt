@@ -11,7 +11,7 @@ class MainViewModel : ViewModel() {
     private val _validationUiStateData = MutableLiveData<ValidationUiState>()
     val validationUiStateData: LiveData<ValidationUiState> = _validationUiStateData
 
-    private val _resultPositionData = MutableLiveData<String>()
+    private val _resultPositionData = SingleLiveEvent<String>()
     val resultPositionData: LiveData<String> = _resultPositionData
 
     /**
