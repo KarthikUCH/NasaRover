@@ -3,6 +3,7 @@ package com.raju.kvr.nasarover.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.raju.kvr.nasarover.domain.NasaUseCase
 import com.raju.kvr.nasarover.domain.Rover
 
 class MainViewModel : ViewModel() {
@@ -20,6 +21,12 @@ class MainViewModel : ViewModel() {
             _validationUiStateData.value = validationState
             return
         }
+
+        val nasaUseCase = NasaUseCase()
+        val plateau = nasaUseCase.findPlateau(width.toInt())
+        val rover = nasaUseCase.landRoverInPlateau(position, plateau)
+        val result = nasaUseCase.navigateRover(rover, instruction)
+        _resultPositionData.value = result
     }
 
     private fun validateInput(
@@ -28,7 +35,7 @@ class MainViewModel : ViewModel() {
         instruction: String
     ): ValidationUiState {
         val isValidWidth = validateWidth(width)
-        val isValidPosition = validatePosition(position)
+        val isValidPosition = validatePosition(width.toIntOrNull() ?: 0, position)
         val isValidInstruction = validateInstruction(instruction)
 
         return ValidationUiState(isValidWidth, isValidPosition, isValidInstruction)
@@ -38,15 +45,22 @@ class MainViewModel : ViewModel() {
         return width.toIntOrNull() != null
     }
 
-    private fun validatePosition(position: String): Boolean {
+    private fun validatePosition(width: Int, position: String): Boolean {
 
         if (position.isEmpty() || position.length != 3) {
             return false
         }
 
-        if (!position[0].isDigit() || !position[1].isDigit() || Rover.directions[position[2]] == null) {
+        val xCoordinate = position[0]
+        val yCoordinate = position[1]
+        if (!xCoordinate.isDigit() || !yCoordinate.isDigit() || Rover.directions[position[2]] == null) {
             return false
         }
+
+        if (xCoordinate.digitToInt() >= width || yCoordinate.digitToInt() >= width) {
+            return false
+        }
+
         return true
     }
 

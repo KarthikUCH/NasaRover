@@ -1,13 +1,17 @@
 package com.raju.kvr.nasarover.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.R
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.raju.kvr.nasarover.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +57,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.resultPositionData.observe(this) {
-
+            displayResultDialog(it)
         }
+    }
+
+    private fun displayResultDialog(result: String) {
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Rover Navigated to")
+            .setMessage(result)
+            .setPositiveButton("Ok") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
+        val textView = dialog.findViewById(R.id.message) as TextView?
+        textView?.textSize = 40f
+
     }
 }
