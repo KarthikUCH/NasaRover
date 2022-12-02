@@ -47,7 +47,9 @@ class MainViewModel : ViewModel() {
     }
 
     private fun validateWidth(width: String): Boolean {
-        return width.toIntOrNull() != null
+        return width.toIntOrNull()?.let {
+            it > 0
+        } ?: false
     }
 
     private fun validatePosition(width: Int, position: String): Boolean {

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">NasaRover</string>
+    <string name="hint_enter_plateau_width">Enter Plateau Width</string>
+    <string name="hint_enter_rover_landing_position">Enter rover landing position</string>
+    <string name="hint_enter_instruction_for_navigation">Enter the instruction for navigation</string>
+    <string name="err_msg_invalid_width">Pls input valid width</string>
+    <string name="err_msg_invalid_landing_position">Pls input valid landing position</string>
+    <string name="err_msg_invalid_navigation_instruction">Pls input valid navigation instruction</string>
 </resources>

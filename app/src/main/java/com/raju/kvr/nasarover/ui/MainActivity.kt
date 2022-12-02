@@ -1,11 +1,11 @@
 package com.raju.kvr.nasarover.ui
 
-import android.R
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.raju.kvr.nasarover.R
 import com.raju.kvr.nasarover.databinding.ActivityMainBinding
 
 
@@ -50,15 +50,18 @@ class MainActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.validationUiStateData.observe(this) {
             if (!it.isValidWidth) {
-                binding.layoutPlateauWidth.error = "Pls input valid width"
+                binding.layoutPlateauWidth.error =
+                    resources.getString(R.string.err_msg_invalid_width)
             }
 
             if (!it.isValidPosition) {
-                binding.layoutRoverPosition.error = "Pls input valid landing position"
+                binding.layoutRoverPosition.error =
+                    resources.getString(R.string.err_msg_invalid_landing_position)
             }
 
             if (!it.isValidInstruction) {
-                binding.layoutRoverNavigation.error = "Pls input valid navigation instruction"
+                binding.layoutRoverNavigation.error =
+                    resources.getString(R.string.err_msg_invalid_navigation_instruction)
             }
         }
 
@@ -74,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Ok") { dialog, _ ->
                 dialog.dismiss()
             }.show()
-        val textView = dialog.findViewById(R.id.message) as TextView?
+        val textView = dialog.findViewById(android.R.id.message) as TextView?
         textView?.textSize = 40f
     }
 }
