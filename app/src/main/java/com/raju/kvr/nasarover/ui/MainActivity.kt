@@ -28,16 +28,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun initSubmitButton() {
         binding.btnSubmit.setOnClickListener {
+            onSubmit()
+        }
+    }
 
-            binding.layoutPlateauWidth.error = null
-            binding.layoutRoverPosition.error = null
-            binding.layoutRoverNavigation.error = null
+    private fun onSubmit() {
+        binding.layoutPlateauWidth.error = null
+        binding.layoutRoverPosition.error = null
+        binding.layoutRoverNavigation.error = null
 
-            val width = binding.edittextWidth.text?.trim().toString()
-            val position = binding.edittextPosition.text?.trim().toString()
-            val instruction = binding.edittextNavigation.text?.trim().toString()
+        val width = binding.edittextWidth.text?.trim().toString()
+        val position = binding.edittextPosition.text?.trim().toString()
+        val instruction = binding.edittextNavigation.text?.trim().toString()
 
-            viewModel.navigate(width, position, instruction)
+        val valid = viewModel.validateInput(width, position, instruction)
+        if (valid) {
+            viewModel.navigate(width.trim().toInt(), position, instruction)
         }
     }
 
@@ -70,6 +76,5 @@ class MainActivity : AppCompatActivity() {
             }.show()
         val textView = dialog.findViewById(R.id.message) as TextView?
         textView?.textSize = 40f
-
     }
 }

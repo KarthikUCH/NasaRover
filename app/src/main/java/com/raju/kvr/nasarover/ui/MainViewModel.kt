@@ -14,31 +14,36 @@ class MainViewModel : ViewModel() {
     private val _resultPositionData = MutableLiveData<String>()
     val resultPositionData: LiveData<String> = _resultPositionData
 
-    fun navigate(width: String, position: String, instruction: String) {
-        val validationState = validateInput(width, position, instruction)
-
-        if (!validationState.isValid()) {
-            _validationUiStateData.value = validationState
-            return
-        }
+    /**
+     *  Handle Rover setup and navigation
+     */
+    fun navigate(width: Int, position: String, instruction: String) {
 
         val nasaUseCase = NasaUseCase()
-        val plateau = nasaUseCase.findPlateau(width.toInt())
+        val plateau = nasaUseCase.findPlateau(width)
         val rover = nasaUseCase.landRoverInPlateau(position, plateau)
         val result = nasaUseCase.navigateRover(rover, instruction)
         _resultPositionData.value = result
     }
 
-    private fun validateInput(
+    /**
+     *  Handle Validation
+     */
+
+    fun validateInput(
         width: String,
         position: String,
         instruction: String
-    ): ValidationUiState {
+    ): Boolean {
         val isValidWidth = validateWidth(width)
         val isValidPosition = validatePosition(width.toIntOrNull() ?: 0, position)
         val isValidInstruction = validateInstruction(instruction)
 
-        return ValidationUiState(isValidWidth, isValidPosition, isValidInstruction)
+        val validationUiState = ValidationUiState(isValidWidth, isValidPosition, isValidInstruction)
+        if (!validationUiState.isValid()) {
+            _validationUiStateData.value = validationUiState
+        }
+        return validationUiState.isValid()
     }
 
     private fun validateWidth(width: String): Boolean {
