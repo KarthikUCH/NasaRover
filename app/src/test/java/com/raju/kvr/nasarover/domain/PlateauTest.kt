@@ -33,6 +33,12 @@ internal class PlateauTest {
         assertEquals(false, plateau.canMoveForward(Direction.E, plateau.width-1, 0))
     }
 
+    @Test
+    fun `facing east, when invalid coordinates, failure`() {
+        assertEquals(false, plateau.canMoveForward(Direction.E, -1, 0))
+    }
+
+
     /**
      * Test for Facing West
      */
@@ -48,6 +54,11 @@ internal class PlateauTest {
     @Test
     fun `facing west, canMoveForward, failure`() {
         assertEquals(false, plateau.canMoveForward(Direction.W, 0, 0))
+    }
+
+    @Test
+    fun `facing west, when invalid coordinates, failure`() {
+        assertEquals(false, plateau.canMoveForward(Direction.W, 7, 0))
     }
 
     /**
@@ -67,6 +78,11 @@ internal class PlateauTest {
         assertEquals(false, plateau.canMoveForward(Direction.N, 0, plateau.width-1))
     }
 
+    @Test
+    fun `facing north, when invalid coordinates, failure`() {
+        assertEquals(false, plateau.canMoveForward(Direction.N, 0, -1))
+    }
+
     /**
      * Test for Facing South
      */
@@ -82,6 +98,11 @@ internal class PlateauTest {
     @Test
     fun `facing south, canMoveForward, failure`() {
         assertEquals(false, plateau.canMoveForward(Direction.S, 0, 0))
+    }
+
+    @Test
+    fun `facing south, when invalid coordinates, failure`() {
+        assertEquals(false, plateau.canMoveForward(Direction.S, 0, 7))
     }
 
 }

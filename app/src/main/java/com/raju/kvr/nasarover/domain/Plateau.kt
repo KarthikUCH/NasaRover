@@ -1,26 +1,28 @@
 package com.raju.kvr.nasarover.domain
 
 class Plateau(val width: Int) {
-    private val maxCoordinate: Int = width - 1;
-    private val minCoordinate: Int = 0
 
+    private val eastFacingMovementRange = 0 until width - 1
+    private val northFacingMovementRange = eastFacingMovementRange;
+    private val westFacingMovementRange = 1 until width
+    private val southFacingMovementRange = westFacingMovementRange;
 
     fun canMoveForward(facingDirection: Direction, xCoordinate: Int, yCoordinate: Int): Boolean {
         return when (facingDirection) {
             Direction.E -> {
-                return xCoordinate < maxCoordinate
+                return xCoordinate in eastFacingMovementRange
             }
 
             Direction.W -> {
-                return xCoordinate > minCoordinate
+                return xCoordinate in westFacingMovementRange
             }
 
             Direction.N -> {
-                return yCoordinate < maxCoordinate
+                return yCoordinate in northFacingMovementRange
             }
 
             Direction.S -> {
-                return yCoordinate > minCoordinate
+                return yCoordinate in southFacingMovementRange
             }
         }
     }
