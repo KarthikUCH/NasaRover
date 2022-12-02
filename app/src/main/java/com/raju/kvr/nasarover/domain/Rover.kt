@@ -24,23 +24,21 @@ class Rover(
 
     fun navigateTo(movement: String) {
         for (ch: Char in movement) {
-            when (instructions[ch]) {
-                is MoveForward -> {
-                    if (plateau.canMoveForward(facing, xCoordinate, yCoordinate)) {
-                        moveForward()
+            instructions[ch]?.let {
+                when (it) {
+                    is MoveForward -> {
+                        if (plateau.canMoveForward(facing, xCoordinate, yCoordinate)) {
+                            moveForward()
+                        }
                     }
-                }
 
-                is TurnRight -> {
-                    facing = facing.turnRight()
-                }
+                    is TurnRight -> {
+                        facing = facing.turnRight()
+                    }
 
-                is TurnLeft -> {
-                    facing = facing.turnLeft()
-                }
-
-                null -> {
-                    // Do Nothing
+                    is TurnLeft -> {
+                        facing = facing.turnLeft()
+                    }
                 }
             }
         }

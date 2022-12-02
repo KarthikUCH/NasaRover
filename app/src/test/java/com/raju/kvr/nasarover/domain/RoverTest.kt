@@ -6,6 +6,25 @@ import org.junit.Assert.assertEquals
 internal class RoverTest {
 
     @Test
+    fun testAllowedInstructions(){
+        val instruction = Rover.instructions
+        assertEquals(3, instruction.size)
+        assertEquals(true, instruction.contains('M'))
+        assertEquals(true, instruction.contains('L'))
+        assertEquals(true, instruction.contains('R'))
+    }
+
+    @Test
+    fun testAllowedDirections(){
+        val directions = Rover.directions
+        assertEquals(4, directions.size)
+        assertEquals(true, directions.contains('E'))
+        assertEquals(true, directions.contains('W'))
+        assertEquals(true, directions.contains('N'))
+        assertEquals(true, directions.contains('S'))
+    }
+
+    @Test
     fun `facing east, testCurrentPosition`() {
         val plateau = Plateau(6)
         val rover = Rover(2, 3, Direction.E, plateau)

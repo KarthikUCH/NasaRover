@@ -7,9 +7,9 @@ class NasaUseCase {
     }
 
     fun landRoverInPlateau(position: String, plateau: Plateau): Rover {
-        val x = position[0].digitToIntOrNull() ?: 0
-        val y = position[1].digitToIntOrNull() ?: 0
-        val facingDirection = Rover.directions[position[2]] ?: Direction.E
+        val x = position.getOrNull(0)?.digitToIntOrNull() ?: 0
+        val y = position.getOrNull(1)?.digitToIntOrNull() ?: 0
+        val facingDirection = Rover.directions[position.getOrNull(2)] ?: Direction.E
         return Rover(x, y, facingDirection, plateau)
     }
 
